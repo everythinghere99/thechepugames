@@ -1,0 +1,9 @@
+{
+  "name": "Tactical War",
+  "short_name": "TacticalWar",
+  "start_url": "./index.html",
+  "display": "fullscreen",
+  "orientation": "landscape",
+  "background_color": "#1a1a2e",
+  "theme_color": "#1a1a2e"
+}
