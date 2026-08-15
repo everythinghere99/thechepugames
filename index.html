@@ -45,7 +45,12 @@
             <button id="overlay-btn" class="hidden">Play Mission ➡️</button>
         </div>
     </div>
-    
+    <script>
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw.js');
+    }
+</script>
+
     <script src="game.js"></script>
 </body>
 </html>
