@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Tactical War - Pika Boy Edition</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Native App Feel & Full Screen Mode -->
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#1a1a2e">
+
+</head>
+<body>
+    <div id="game-container">
+        <!-- Top UI Bar -->
+        <div id="ui-bar">
+            <div class="ui-item">❤️ <span id="health">100</span></div>
+            <div class="ui-item">💰 <span id="gold">200</span></div>
+            <div class="ui-item">🗺️ Wave <span id="wave">1</span>/5</div>
+        </div>
+
+        <!-- The Game Canvas -->
+        <canvas id="gameCanvas"></canvas>
+
+        <!-- Center Screen Announcer -->
+        <div id="announcer" class="hidden">WAVE 1 START!</div>
+
+        <!-- Bottom Controls -->
+        <div id="bottom-ui">
+            <button id="btn-basic" class="active">🔴 Basic (20)</button>
+            <button id="btn-heavy">🟠 Heavy (40)</button>
+            <button id="btn-slow">❄️ Slow (50)</button>
+            <button id="btn-buff">📡 Antenna (60)</button>
+        </div>
+
+        <!-- Loading & Menus Popup -->
+        <div id="overlay">
+            <h1 id="overlay-title">Loading Maps & Assets...</h1>
+            <p id="overlay-desc">Please Wait...</p>
+            <button id="overlay-btn" class="hidden">Play Mission ➡️</button>
+        </div>
+    </div>
+    
+    <script src="game.js"></script>
+</body>
+</html>
