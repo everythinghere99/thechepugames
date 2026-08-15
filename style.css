@@ -1,46 +1,49 @@
-body {
-    margin: 0; padding: 0; background-color: #1a1a2e; overflow: hidden;
-    font-family: 'Courier New', Courier, monospace; font-weight: bold; color: white; user-select: none;
-}
+body { margin: 0; padding: 0; background: #000; overflow: hidden; font-family: 'Segoe UI', sans-serif; color: white; }
 
-#game-container { position: relative; width: 100vw; height: 100vh; display: flex; flex-direction: column; }
+#game-container { position: relative; width: 100vw; height: 100vh; }
 
-/* Phone portrait me ho toh ye screen dikhegi */
+/* Landscape Lock */
 @media screen and (orientation: portrait) {
     #game-container::after {
-        content: 'Please Rotate Your Phone (Landscape) 🔄';
+        content: 'ROTATE TO LANDSCAPE 🔄';
         position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-        background: #1a1a2e; z-index: 9999;
-        display: flex; justify-content: center; align-items: center;
-        font-size: 24px; text-align: center; padding: 20px; color: #f1c40f;
+        background: #000; display: flex; justify-content: center; align-items: center; z-index: 9999;
     }
 }
 
-#ui-bar {
-    height: 10vh; background-color: rgba(20, 20, 30, 0.9); display: flex; justify-content: space-around;
-    align-items: center; border-bottom: 2px solid #333; z-index: 10;
-}
-.ui-item { font-size: 16px; text-shadow: 1px 1px 0px #000; }
+#gameCanvas { width: 100%; height: 100%; display: block; object-fit: contain; }
 
-#gameCanvas { 
-    display: block; margin: 0 auto; background-color: #2c3e50; 
+/* Top Floating Stats */
+#top-ui {
+    position: absolute; top: 10px; left: 10px; right: 10px;
+    display: flex; justify-content: space-between; background: rgba(0,0,0,0.5);
+    padding: 10px 20px; border-radius: 15px; backdrop-filter: blur(5px);
+    border: 1px solid rgba(255,255,255,0.2);
 }
+.stat { font-size: 18px; font-weight: bold; text-shadow: 1px 1px 2px #000; }
 
-#bottom-ui {
-    height: 12vh; background-color: rgba(20, 20, 30, 0.95); display: flex;
-    justify-content: space-around; align-items: center; padding: 0 5px; z-index: 10;
+/* Bottom Terminal Panel */
+#terminal-panel {
+    position: absolute; bottom: 10px; left: 10px; right: 10px;
+    display: flex; gap: 10px; background: rgba(20, 20, 30, 0.8);
+    padding: 10px; border-radius: 20px; backdrop-filter: blur(10px);
 }
-#bottom-ui button {
-    padding: 10px 15px; font-size: 14px; font-weight: bold; border-radius: 6px;
-    border: 2px solid gray; background: #333; color: white; transition: 0.2s;
+#terminal-panel button {
+    flex: 1; padding: 15px; background: #222; border: 2px solid #444;
+    color: #fff; border-radius: 12px; font-weight: bold;
+    display: flex; flex-direction: column; align-items: center;
 }
-#bottom-ui button.active { border-color: #f1c40f; background: #555; transform: scale(1.05); }
+#terminal-panel button.active { border-color: #f1c40f; background: #333; }
+#terminal-panel button span { font-size: 12px; color: #f1c40f; margin-top: 5px; }
+
+#announcer {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    font-size: 40px; color: #f1c40f; text-shadow: 0 0 10px red;
+}
+#announcer.hidden { display: none; }
 
 #overlay {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.9); backdrop-filter: blur(5px); display: flex; 
-    flex-direction: column; justify-content: center; align-items: center; z-index: 20;
+    background: rgba(0,0,0,0.95); display: flex; flex-direction: column;
+    justify-content: center; align-items: center; z-index: 100;
 }
-#overlay.hidden { display: none; }
-#overlay h1 { font-size: 30px; color: #f1c40f; margin-bottom: 10px; text-align: center;}
-#overlay-btn { padding: 12px 25px; font-size: 18px; font-weight: bold; background: #2ecc71; color: white; border: none; border-radius: 8px;}
