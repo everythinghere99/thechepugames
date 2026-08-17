@@ -5,34 +5,91 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Tactical War</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
 </head>
 <body>
-    <div id="game-container">
-        <canvas id="gameCanvas"></canvas>
+    <div id="app-container">
 
-        <!-- Floating UI Overlays -->
-        <div id="top-ui">
-            <div class="stat">❤️ <span id="health">100</span></div>
-            <div class="stat">💰 <span id="gold">200</span></div>
-            <div class="stat">🗺️ <span id="wave">Wave 1/5</span></div>
+        <div id="screen-loading" class="screen menu-bg active">
+            <h1 class="retro-text text-yellow shadow-text">LOADING</h1>
+            <div class="metal-panel has-screws" style="width: 300px; padding: 10px; margin: 20px;">
+                <div id="loading-bar-container"><div id="loading-bar"></div></div>
+            </div>
+            <p id="loading-text" class="retro-text text-white shadow-text">Fetching Assets...</p>
         </div>
 
-        <div id="announcer" class="hidden">WAVE 1 START!</div>
+        <div id="screen-levels" class="screen menu-bg hidden">
+            <div class="top-nav">
+                <button class="metal-btn has-screws large-btn" onclick="alert('Menu')">BACK</button>
+                <button class="metal-btn has-screws large-btn" id="nav-hangar">🛠 HANGAR</button>
+            </div>
+            
+            <div class="level-grid-container">
+                <div class="level-grid">
+                    <button class="level-btn unlocked" id="btn-level-1">
+                        <span class="num">1</span><span class="stars">⭐⭐⭐</span>
+                    </button>
+                    <button class="level-btn unlocked"><span class="num">2</span><span class="stars">⭐⭐</span></button>
+                    <button class="level-btn unlocked"><span class="num">3</span><span class="stars">⭐</span></button>
+                    <button class="level-btn unlocked"><span class="num">4</span></button>
+                    <button class="level-btn locked"><span class="num">5</span></button>
+                    
+                    <button class="level-btn locked"><span class="num">6</span></button>
+                    <button class="level-btn locked"><span class="num">7</span></button>
+                    <button class="level-btn locked"><span class="num">8</span></button>
+                    <button class="level-btn locked"><span class="num">9</span></button>
+                    <button class="level-btn locked"><span class="num">10</span></button>
+                    
+                    <button class="level-btn locked"><span class="num">11</span></button>
+                    <button class="level-btn locked"><span class="num">12</span></button>
+                    <button class="level-btn locked"><span class="num">13</span></button>
+                    <button class="level-btn locked"><span class="num">14</span></button>
+                    <button class="level-btn locked"><span class="num">15</span></button>
+                </div>
+            </div>
 
-        <div id="terminal-panel">
-            <button id="btn-basic" class="active">Basic<span>20</span></button>
-            <button id="btn-heavy">Heavy<span>40</span></button>
-            <button id="btn-slow">Slow<span>50</span></button>
-            <button id="btn-buff">Antenna<span>60</span></button>
+            <div class="bottom-nav">
+                <button class="metal-btn has-screws large-btn text-red">STORE</button>
+            </div>
         </div>
 
-        <div id="overlay">
-            <h1 id="overlay-title">Loading...</h1>
-            <p id="overlay-desc"></p>
-            <button id="overlay-btn" class="hidden">START MISSION</button>
+        <div id="screen-hangar" class="screen menu-bg hidden">
+            <div class="top-nav">
+                <button class="metal-btn has-screws large-btn" id="nav-levels">BACK</button>
+                <div class="metal-panel title-panel has-screws">HANGAR</div>
+                <div class="metal-panel money-panel has-screws">$560 <button class="plus-btn">+</button></div>
+            </div>
+            <div class="hangar-content retro-text text-white shadow-text" style="text-align:center; margin-top:100px;">
+                <h2>UPGRADE TREES</h2>
+                <p>Coming Soon...</p>
+            </div>
         </div>
+
+        <div id="screen-game" class="screen hidden">
+            <canvas id="gameCanvas"></canvas>
+            
+            <div id="game-stats-topleft" class="metal-panel has-screws">
+                <div class="stat-line"><span style="color:#e74c3c;">❤️</span> <span id="health">10</span> &nbsp;&nbsp; <span style="color:#2ecc71;">💵</span> <span id="gold">100</span></div>
+                <div class="stat-line">WAVE <span id="wave">14/15</span></div>
+            </div>
+
+            <div id="game-controls-topright">
+                <button class="metal-btn has-screws icon-btn">⚙️</button>
+                <button class="metal-btn has-screws icon-btn btn-orange">▶▶</button>
+                <button class="metal-btn has-screws icon-btn">⏸️</button>
+            </div>
+            
+            <div id="announcer" class="retro-text text-yellow shadow-text hidden">WAVE 1 START!</div>
+            
+            <div id="terminal-panel" class="metal-panel has-screws">
+                <button id="btn-basic" class="tower-btn active">🔴</button>
+                <button id="btn-heavy" class="tower-btn">🟠</button>
+                <button id="btn-slow" class="tower-btn">❄️</button>
+                <button id="btn-buff" class="tower-btn">📡</button>
+            </div>
+        </div>
+
     </div>
     <script src="game.js"></script>
 </body>
 </html>
-
