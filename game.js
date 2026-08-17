@@ -191,3 +191,4 @@ function resizeCanvas() {
 window.addEventListener('resize', resizeCanvas); resizeCanvas(); 
 
 loadAllAssets(() => { showScreen('levels'); });
+
