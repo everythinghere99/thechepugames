@@ -1,50 +1,85 @@
-body { margin: 0; padding: 0; background: #000; overflow: hidden; font-family: 'Segoe UI', sans-serif; color: white; }
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
-#game-container { position: relative; width: 100vw; height: 100vh; }
+body { margin: 0; padding: 0; background: #000; overflow: hidden; font-family: 'Press Start 2P', monospace; user-select: none; }
+#app-container { position: relative; width: 100vw; height: 100vh; overflow: hidden; }
+.screen { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; }
+.hidden { display: none !important; } .active { display: flex !important; }
 
-/* Landscape Lock */
-@media screen and (orientation: portrait) {
-    #game-container::after {
-        content: 'ROTATE TO LANDSCAPE 🔄';
-        position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-        background: #000; display: flex; justify-content: center; align-items: center; z-index: 9999;
-    }
+/* 1. RETRO GRID BACKGROUND (Like Screenshot) */
+.menu-bg {
+    background-color: #2b2b2b;
+    background-image: linear-gradient(#3a3a3a 2px, transparent 2px), linear-gradient(90deg, #3a3a3a 2px, transparent 2px);
+    background-size: 50px 50px;
 }
 
-#gameCanvas { width: 100%; height: 100%; display: block; object-fit: contain; }
+/* 2. TEXT STYLES */
+.retro-text { font-family: 'Press Start 2P', monospace; }
+.text-yellow { color: #f1c40f; } .text-white { color: #fff; } .text-red { color: #c0392b !important; }
+.shadow-text { text-shadow: 3px 3px 0px #000; }
 
-/* Top Floating Stats */
-#top-ui {
-    position: absolute; top: 10px; left: 10px; right: 10px;
-    display: flex; justify-content: space-between; background: rgba(0,0,0,0.5);
-    padding: 10px 20px; border-radius: 15px; backdrop-filter: blur(5px);
-    border: 1px solid rgba(255,255,255,0.2);
-}
-.stat { font-size: 18px; font-weight: bold; text-shadow: 1px 1px 2px #000; }
-
-/* Bottom Terminal Panel */
-#terminal-panel {
-    position: absolute; bottom: 10px; left: 10px; right: 10px;
-    display: flex; gap: 10px; background: rgba(20, 20, 30, 0.8);
-    padding: 10px; border-radius: 20px; backdrop-filter: blur(10px);
-}
-#terminal-panel button {
-    flex: 1; padding: 15px; background: #222; border: 2px solid #444;
-    color: #fff; border-radius: 12px; font-weight: bold;
-    display: flex; flex-direction: column; align-items: center;
-}
-#terminal-panel button.active { border-color: #f1c40f; background: #333; }
-#terminal-panel button span { font-size: 12px; color: #f1c40f; margin-top: 5px; }
-
-#announcer {
-    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-    font-size: 40px; color: #f1c40f; text-shadow: 0 0 10px red;
-}
-#announcer.hidden { display: none; }
-
-#overlay {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.95); display: flex; flex-direction: column;
-    justify-content: center; align-items: center; z-index: 100;
+/* 3. SCREWS & RIVETS (PURE CSS MAGIC) */
+.has-screws { position: relative; }
+.has-screws::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 10;
+    /* Drawing 4 screws in the corners */
+    background-image: 
+      radial-gradient(circle 3px at 8px 8px, #1a1a1a 100%, transparent),
+      radial-gradient(circle 3px at calc(100% - 8px) 8px, #1a1a1a 100%, transparent),
+      radial-gradient(circle 3px at 8px calc(100% - 8px), #1a1a1a 100%, transparent),
+      radial-gradient(circle 3px at calc(100% - 8px) calc(100% - 8px), #1a1a1a 100%, transparent);
 }
 
+/* 4. METAL PANELS & BUTTONS */
+.metal-panel, .metal-btn {
+    background: #95a5a6;
+    border: 4px solid #1a1a1a; border-radius: 8px;
+    box-shadow: inset -4px -4px 0px #7f8c8d, inset 4px 4px 0px #bdc3c7, 4px 4px 10px rgba(0,0,0,0.6);
+    color: #222; font-family: 'Press Start 2P', monospace; text-transform: uppercase;
+}
+.metal-btn { cursor: pointer; transition: 0.1s; }
+.metal-btn:active { box-shadow: inset 4px 4px 0px #7f8c8d, inset -4px -4px 0px #bdc3c7; transform: translateY(2px); }
+
+/* MENU LAYOUT (Top/Bottom bars) */
+.top-nav { display: flex; justify-content: space-between; padding: 15px 20px; z-index: 5; }
+.bottom-nav { position: absolute; bottom: 15px; right: 20px; z-index: 5; }
+.large-btn { padding: 15px 20px; font-size: 16px; font-weight: bold; }
+.title-panel { padding: 15px 40px; font-size: 24px; background: #bdc3c7; }
+.money-panel { padding: 10px 15px; font-size: 20px; display: flex; align-items: center; gap: 15px; background: #bdc3c7; }
+.plus-btn { background: #f1c40f; border: 3px solid #222; border-radius: 4px; font-weight: bold; width: 30px; height: 30px; cursor: pointer; }
+
+/* 5. LEVEL SELECT GRID (Inner plates) */
+.level-grid-container { flex: 1; display: flex; justify-content: center; align-items: center; }
+.level-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 15px; padding: 20px; background: rgba(0,0,0,0.3); border-radius: 15px; border: 4px solid #222; }
+
+.level-btn {
+    width: 80px; height: 80px; position: relative; border: 4px solid #1a1a1a; border-radius: 8px; cursor: pointer;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    box-shadow: inset -2px -2px 0px rgba(0,0,0,0.3), 3px 3px 5px rgba(0,0,0,0.5);
+}
+/* Inner Square Design */
+.level-btn::after {
+    content: ''; position: absolute; top: 8px; left: 8px; right: 8px; bottom: 8px;
+    border: 3px solid #1a1a1a; border-radius: 4px; z-index: 1;
+}
+.level-btn .num { z-index: 2; font-size: 28px; }
+.level-btn .stars { z-index: 2; font-size: 10px; color: #f1c40f; text-shadow: 1px 1px 0px #000; position: absolute; bottom: 12px; }
+
+/* Locked vs Unlocked Colors */
+.level-btn.locked { background: #555; } .level-btn.locked::after { background: #444; } .level-btn.locked .num { color: #333; }
+.level-btn.unlocked { background: #95a5a6; } .level-btn.unlocked::after { background: #bdc3c7; } .level-btn.unlocked .num { color: #222; }
+
+/* 6. GAME UI STYLES */
+#gameCanvas { width: 100%; height: 100%; display: block; object-fit: contain; position: absolute; z-index: 1; }
+
+#game-stats-topleft { position: absolute; top: 15px; left: 15px; z-index: 10; padding: 12px 25px; font-size: 16px; line-height: 1.5; font-weight: bold; background: #95a5a6; }
+#game-controls-topright { position: absolute; top: 15px; right: 15px; z-index: 10; display: flex; gap: 10px; }
+.icon-btn { width: 50px; height: 50px; font-size: 20px; display: flex; justify-content: center; align-items: center; }
+.btn-orange { background: #d35400; color: white; }
+
+#terminal-panel { position: absolute; bottom: 15px; left: 15px; z-index: 10; display: flex; gap: 10px; padding: 15px; background: #7f8c8d; }
+.tower-btn { width: 60px; height: 60px; background: #bdc3c7; border: 3px solid #222; border-radius: 8px; font-size: 24px; cursor: pointer; position: relative; }
+.tower-btn.active { border-color: #f1c40f; background: #ecf0f1; transform: scale(1.1); box-shadow: 0 0 10px #f1c40f; }
+
+#announcer { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 40px; z-index: 20; }
+#loading-bar-container { width: 100%; height: 20px; background: #444; border: 3px solid #111; }
+#loading-bar { width: 0%; height: 100%; background: #f1c40f; transition: 0.2s; }
